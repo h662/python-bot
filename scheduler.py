@@ -13,7 +13,6 @@ NOTIFY_SCHEDULE = [
     ((11, 50), "🕚 11시 50분, 점심 시간입니다! 맛있게 드세요! 🍱"),
     ((12, 55), "🕛 오후 수업 시작 5분 전입니다! 에너지 충전하세요!"),
     ((13, 50), "🕜 13시 50분! 오후 첫 강의 준비해볼까요?"),
-    ((14, 25), "🕑 쉬는시간 알림 테스트 중이니까 신경끄고 11시까지 잠이나 처 자셈!"),
     ((14, 30), "🕑 쉬는시간 알림 테스트 중이니까 신경끄고 11시까지 잠이나 처 자셈!"),
     ((14, 35), "🕑 쉬는시간 알림 테스트 중이니까 신경끄고 11시까지 잠이나 처 자셈!"),
     ((14, 40), "🕑 쉬는시간 알림 테스트 중이니까 신경끄고 11시까지 잠이나 처 자셈!"),
@@ -26,11 +25,13 @@ NOTIFY_SCHEDULE = [
 
 def setup_scheduler(bot, channel_id: int):
     scheduler = AsyncIOScheduler(timezone="Asia/Seoul")
+
     for (hour, minute), message in NOTIFY_SCHEDULE:
         trigger = CronTrigger(
             hour=hour,
             minute=minute,
             day_of_week="mon-fri",
+            timezone="Asia/Seoul"
         )
 
         scheduler.add_job(
