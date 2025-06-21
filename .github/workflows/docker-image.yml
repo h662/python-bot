@@ -1,0 +1,53 @@
+name: Build & Deploy to EC2 via Docker Compose
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build the Docker image
+        run: |
+          IMAGE_TAG=my-discord-bot:${{ github.sha }}
+          docker build . \
+            --file Dockerfile \
+            --tag $IMAGE_TAG
+          echo "Built image $IMAGE_TAG"
+
+  deploy:
+    name: Deploy to EC2
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Prepare SSH Key
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
+          chmod 600 key.pem
+
+      - name: SSH & Deploy on EC2
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          key: key.pem
+          script: |
+            set -e
+            cd ~/discord-bot
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            docker-compose pull || true
+            docker-compose up -d --build
