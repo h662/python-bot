@@ -10,7 +10,7 @@ class QuizCog(commands.Cog):
         self.master_id: int | None = 943335596162691093
         self.scoreboard = {i: 0 for i in range(1, 11)}
 
-    @commands.command(name="quiz")
+    @commands.command(name="퀴즈")
     async def quiz(self, ctx):
         if self.master_id is not None and ctx.author.id != self.master_id:
             return
@@ -29,7 +29,7 @@ class QuizCog(commands.Cog):
         except Exception as e:
             await ctx.send(f"⚠️ 퀴즈 로드 실패: {e}")
 
-    @commands.command(name="next")
+    @commands.command(name="다음")
     async def next_quiz(self, ctx):
         if self.master_id is None or ctx.author.id != self.master_id:
             return

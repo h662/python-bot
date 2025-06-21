@@ -8,7 +8,6 @@ from quiz import QuizCog
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 
-
 intents = discord.Intents.default()
 intents.message_content = True 
 intents.members = True 
@@ -28,8 +27,10 @@ async def ping(ctx):
     await ctx.send("Pong!")
 
 async def setup_hook():
-    await bot.add_cog(QuizCog(bot))
-    print("✅ QuizCog successfully loaded")
+    if "QuizCog" not in bot.cogs:
+        await bot.add_cog(QuizCog(bot))
+    else:
+        print("⚠️ QuizCog 중복 등록 시도 차단됨.")
 
 bot.setup_hook = setup_hook
 
