@@ -20,6 +20,6 @@ async def on_ready():
 
 @bot.command(name="ping")
 async def ping(ctx):
-    await ctx.send("Pong!")
+    await ctx.send("Pong 씨발 그만불러!")
 
 bot.run(TOKEN)
