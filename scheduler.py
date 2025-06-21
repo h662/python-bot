@@ -33,7 +33,7 @@ def setup_scheduler(bot, channel_id: int):
         trigger = CronTrigger(
             hour=hour,
             minute=minute,
-            day_of_week="mon-fri",
+            # day_of_week="mon-fri",
             timezone="Asia/Seoul"
         )
 
