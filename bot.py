@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from scheduler import setup_scheduler
+from quiz import QuizCog
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -13,6 +14,8 @@ intents.message_content = True
 intents.members = True 
 
 bot = commands.Bot(command_prefix="!", intents=intents)
+
+bot.add_cog(QuizCog(bot))
 
 @bot.event
 async def on_ready():
