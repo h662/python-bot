@@ -19,7 +19,7 @@ async def on_ready():
     print(f"Logged in as {bot.user} (ID: {bot.user.id})")
     print("------")
     # 실제 채널 ID로 교체
-    CHANNEL_ID = 1231937037532270657
+    CHANNEL_ID = 1369635004597928000
     setup_scheduler(bot, CHANNEL_ID)
 
 @bot.command(name="ping")
