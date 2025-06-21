@@ -37,6 +37,10 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY_B64 }}" | base64 --decode > key.pem
           chmod 600 key.pem
 
+      - name: Debug SSH Key Length
+        run: |
+          echo "KEY SIZE: $(wc -c < key.pem) bytes"
+
       - name: SSH & Deploy on EC2
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -46,9 +50,7 @@ jobs:
           script: |
             set -e
             cd ~/python-bot
-
             git fetch origin main
             git reset --hard origin/main
-
             docker-compose pull || true
             docker-compose up -d --build
