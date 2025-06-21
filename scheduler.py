@@ -39,7 +39,12 @@ def setup_scheduler(bot, channel_id: int):
             trigger=trigger,
             id=f"notify_{hour:02d}{minute:02d}"
         )
+        
+    bot.scheduler = scheduler 
     scheduler.start()
+
+    for job in scheduler.get_jobs():
+        logging.info(f"Scheduled {job.id} next run at {job.next_run_time}")
 
 async def _notify(bot, channel_id: int, message: str):
     today = datetime.date.today()
