@@ -15,8 +15,6 @@ intents.members = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-bot.add_cog(QuizCog(bot))
-
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user} (ID: {bot.user.id})")
@@ -28,5 +26,11 @@ async def on_ready():
 @bot.command(name="ping")
 async def ping(ctx):
     await ctx.send("Pong!")
+
+async def setup_hook():
+    await bot.add_cog(QuizCog(bot))
+    print("✅ QuizCog successfully loaded")
+
+bot.setup_hook = setup_hook
 
 bot.run(TOKEN)
