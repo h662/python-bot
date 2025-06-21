@@ -35,7 +35,26 @@ class QuizCog(commands.Cog):
             return
 
         if not self.quiz_queue:
-            await ctx.send("😢 더 풀 문제가 없습니다. `!퀴즈` 로 새로 로드하세요.")
+            await ctx.send("🎉 모든 퀴즈가 끝났습니다! 고생하셨습니다 👏👏")
+
+            scores = self.scoreboard
+            max_score = max(scores.values())
+            winners = [f"{t}팀" for t, score in scores.items() if score == max_score and max_score > 0]
+
+            score_lines = []
+            for t in sorted(scores):
+                line = f"{t}팀: {scores[t]}점"
+                if max_score > 0 and scores[t] == max_score:
+                    line = f"**🎉 {line} 🎉**"
+                score_lines.append(line)
+
+            await ctx.send("=== 🏁 최종 점수표 ===\n" + "\n".join(score_lines))
+
+            if winners:
+                await ctx.send(f"🏆 우승팀: {', '.join(winners)} 🎉")
+            else:
+                await ctx.send("🙅 우승팀 없음 (모든 팀 0점입니다.)")
+
             return
         self.current_quiz = self.quiz_queue.pop(0)
         q = self.current_quiz
