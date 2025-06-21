@@ -3,6 +3,9 @@ import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 import holidays
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 KR_HOLIDAYS = holidays.KR(years=[2025])
 
