@@ -46,6 +46,9 @@ class QuizCog(commands.Cog):
         if message.author.bot:
             return
         
+        if message.content.startswith("!"):
+            return
+        
         await self.bot.process_commands(message)
 
         if not self.current_quiz:
