@@ -34,7 +34,7 @@ jobs:
 
       - name: Prepare SSH Key
         run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
+          echo "${{ secrets.EC2_SSH_KEY_B64 }}" | base64 --decode > key.pem
           chmod 600 key.pem
 
       - name: SSH & Deploy on EC2
