@@ -16,13 +16,11 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
-    if not getattr(bot, "scheduler_started", False):
-        print(f"Logged in as {bot.user} (ID: {bot.user.id})")
-        print("------")
-        # 실제 채널 ID로 교체
-        CHANNEL_ID = 1231937037532270657
-        setup_scheduler(bot, CHANNEL_ID)
-        bot.scheduler_started = True
+    print(f"Logged in as {bot.user} (ID: {bot.user.id})")
+    print("------")
+    # 실제 채널 ID로 교체
+    CHANNEL_ID = 1231937037532270657
+    setup_scheduler(bot, CHANNEL_ID)
 
 @bot.command(name="ping")
 async def ping(ctx):
