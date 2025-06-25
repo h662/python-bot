@@ -14,6 +14,8 @@ class QuizCog(commands.Cog):
     async def quiz(self, ctx):
         if self.master_id is not None and ctx.author.id != self.master_id:
             return
+        
+        self.scoreboard = {i: 0 for i in range(1, 11)}
 
         try:
             with open("quiz.json", encoding="utf-8") as f:
