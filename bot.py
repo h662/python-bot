@@ -3,7 +3,6 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from scheduler import setup_scheduler
-from quiz import QuizCog
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
